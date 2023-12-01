@@ -136,7 +136,7 @@ end
 # convenience constructor: 
 KnotVector( kvec::T ) where T <: StepRangeLen = UniformKnotVector(kvec)
 
-function ndsplineeval( x, centers, derivatives_bool, knots, coeffs, orders, nd )
+function ndsplineeval( x, centers, derivatives_bool, knots, coeffs, orders, nd, nknots )
 
     local_basis = Array{Float64}(undef, maximum(orders)+1, nd )
 
@@ -155,7 +155,7 @@ function ndsplineeval( x, centers, derivatives_bool, knots, coeffs, orders, nd )
                 local_basis[ 1, d ] = bsplinebasis( bsp_space, 1, x[d] )
                 local_basis[ 2:(orders[d]+1), d ] .= 0.
 
-            elseif ( centers[d] == x[d] - ( orders[d] + 1) ) && ( x[d] > knots[d][centers[d]+1] )
+            elseif ( centers[d] == nknots[d] - ( orders[d] + 1) ) && ( x[d] > knots[d][centers[d]+1] )
                 local_basis[ 1:orders[d], d] .= 0.
                 local_basis[ orders[d]+1, d ] = bsplinebasis( bsp_space, centers[d], x[d] )
 
@@ -179,7 +179,7 @@ function evaluate_simple( x, spt::SplineTable )
    
     ndsplineeval( 
         x, centers, calc_derivs, 
-        spt.knots, spt.coeffs, spt.orders, spt.ndim,
+        spt.knots, spt.coeffs, spt.orders, spt.ndim, spt.nknots
     )
 end
 
