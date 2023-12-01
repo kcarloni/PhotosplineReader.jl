@@ -114,17 +114,17 @@ function search_centers( x, nd, knots, orders, naxes, nknots )
     end
 end
 
-# utility for ndsplineeval_core
-decomposed_pos(z, nd) = [ b=='1' for b in bitstring(z)[(end-nd+1):end] ]
-
 function ndsplineeval_core( centers, local_basis, coeffs, orders, nd )
 
     nchunks = prod( orders .+ 1 )
     result = 0.
 
-    for z in 0:(nchunks-1)
+    # for z in 0:(nchunks-1)
+    #     pos = decomposed_pos(z, nd)
 
-        pos = decomposed_pos(z, nd)
+    iter_pos = Base.Iterators.product( range.(0, orders)... )
+    for pos in iter_pos
+
         basis_tree_term = prod( local_basis[b+1, d] for (d,b) in enumerate(pos) )
         coeff_term = coeffs[ (centers .- orders .+ pos)... ]
 
@@ -139,18 +139,33 @@ KnotVector( kvec::T ) where T <: StepRangeLen = UniformKnotVector(kvec)
 function ndsplineeval( x, centers, derivatives_bool, knots, coeffs, orders, nd )
 
     local_basis = Array{Float64}(undef, maximum(orders)+1, nd )
+    # @show size(local_basis)
 
     # iterate over dimensions to get local basis: 
     for d in 1:nd
         bsp_space = BSplineSpace{ orders[d] }( KnotVector(knots[d]) )
 
         if derivatives_bool[d]
-            local_basis[:, d] .= bsplinebasisall( BSplineDerivativeSpace{1}(bsp_space), centers[d]-1, x[d] )
+            throw( ErrorException( "haven't really checked derivs yet sorry ") )
+            # local_basis[:, d] .= bsplinebasisall( BSplineDerivativeSpace{1}(bsp_space), centers[d]-1, x[d] )
 
         else
-            local_basis[:, d] .= bsplinebasisall( bsp_space, centers[d]-1, x[d] )
+
+            # handle edges...
+            if ( centers[d]-1 == orders[d] ) && ( x[d] < knots[d][centers[d]] ) 
+                local_basis[ 1, d ] = bsplinebasis( bsp_space, 1, x[d] )
+                local_basis[ 2:(orders[d]+1), d ] .= 0.
+
+            elseif ( centers[d] == spt.nknots[d] - ( orders[d] + 1) ) && ( x[d] > knots[d][centers[d]+1] )
+                local_basis[ 1:orders[d], d] .= 0.
+                local_basis[ orders[d]+1, d ] = bsplinebasis( bsp_space, centers[d], x[d] )
+
+            else
+                local_basis[1:(orders[d]+1), d] .= bsplinebasisall( bsp_space, centers[d]-orders[d], x[d] )
+            end
         end
     end
+    display( local_basis )
     return ndsplineeval_core( centers, local_basis, coeffs, orders, nd )
 end
 
