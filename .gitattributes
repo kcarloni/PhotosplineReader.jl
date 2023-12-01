@@ -1,0 +1,2 @@
+*.fits filter=lfs diff=lfs merge=lfs -text
+examples/IceCube_data_release_202209013_kdes/sig_E_psi_photospline_v006_4D.fits filter=lfs diff=lfs merge=lfs -text
