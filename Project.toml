@@ -1,4 +1,14 @@
+name = "PhotosplineReader"
+uuid = "c22bce51-3fbf-4439-b10f-ecea3fc95c1d"
+authors = ["kcarloni <kcarloni@g.harvard.edu>"]
+version = "0.1.0"
+
 [deps]
 BasicBSpline = "4c5d9882-2acf-4ea4-9e48-968fd4518195"
 FITSIO = "525bcba6-941b-5504-bd06-fd0dc1a4d2eb"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
+[compat]
+BasicBSpline = "0.9"
+FITSIO = "0.17"
+StaticArrays = "1.7"
