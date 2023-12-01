@@ -12,8 +12,6 @@ with help from `FITSIO.jl` and `BasicBSpline.jl`
 julia> include("read_splinetable.jl")
 evaluate_simple (generic function with 1 method)
 
-julia> 
-
 julia> fdir = "examples/IceCube_data_release_202209013_kdes/"
 "examples/IceCube_data_release_202209013_kdes/"
 
