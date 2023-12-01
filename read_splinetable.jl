@@ -170,9 +170,9 @@ end
 
 # ==================
 
-search_centers( x, sptable::SplineTable ) = search_centers( x, spt.ndim, spt.knots, spt.orders, spt.naxes, spt.nknots )
+search_centers( x, spt::SplineTable ) = search_centers( x, spt.ndim, spt.knots, spt.orders, spt.naxes, spt.nknots )
 
-function evaluate_simple( x, sptable::SplineTable )
+function evaluate_simple( x, spt::SplineTable )
 
     centers = search_centers( x, spt.ndim, spt.knots, spt.orders, spt.naxes, spt.nknots )
     calc_derivs = fill( false, spt.ndim )
