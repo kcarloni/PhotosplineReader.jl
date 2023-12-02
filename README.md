@@ -1,7 +1,11 @@
-source code adapted to julia from https://github.com/icecube/photospline,
+## PhotosplineReader.jl
 
-with help from `FITSIO.jl` and `BasicBSpline.jl`
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://kcarloni.github.io/PhotosplineReader.jl/dev)
+[![Build Status](https://github.com/kcarloni/PhotosplineReader.jl/workflows/CI/badge.svg)](https://github.com/kcarloni/PhotosplineReader.jl/actions)
 
+source code adapted to julia from https://github.com/icecube/photospline, with help from `FITSIO.jl` and `BasicBSpline.jl`.
+
+## Quick start
 ```julia
 julia> using PhotosplineReader
 
