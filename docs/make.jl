@@ -9,7 +9,6 @@ makedocs(;
     pages=[
         "APIs" => "internalapis.md",
     ],
-    repo="https://github.com/kcarloni/PhotosplineReader.jl/blob/{commit}{path}#L{line}",
     sitename="PhotosplineReader.jl",
     authors="all contributors",
 )
