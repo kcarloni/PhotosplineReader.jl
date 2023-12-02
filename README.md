@@ -41,6 +41,6 @@ julia> x = @SVector[ 2.8, 0.2, 3.0]
  0.2
  3.0
 
-julia> PhotosplineReader.evaluate_simple( x, spt)
+julia> PhotosplineReader.evaluate_simple( x, spt )
 0.7973871961087491
 ```
