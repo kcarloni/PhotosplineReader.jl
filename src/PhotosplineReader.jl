@@ -3,6 +3,7 @@ module PhotosplineReader
 using FITSIO
 using BasicBSpline
 using StaticArrays
+using Printf
 
 # structs
 export SplineTable

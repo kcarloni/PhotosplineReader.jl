@@ -53,3 +53,15 @@ function SplineTable( f::FITS )
 
     return SplineTable( ndim, orders, extents, knots, coeffs)
 end
+
+# -----------------
+
+function Base.show( io::IO, spt::SplineTable )
+
+    print(io, spt.ndim, "-dimensional SplineTable of b-spline orders ", spt.orders, ",\n")
+    print(io, "with extents: \n")
+    for d in 1:spt.ndim
+        @printf(io, "\t (%.2f, %.2f) \n", spt.extents[:, d]...)
+    end
+    
+end
