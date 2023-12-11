@@ -10,6 +10,7 @@ export SplineTable
 
 # evaluation functions:
 export evaluate_simple
+export (f::SplineTable)(x) = evaluate_simple(x, f)
 
 include("_utils.jl")
 include("_SplineTable.jl")
