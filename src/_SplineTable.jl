@@ -56,6 +56,8 @@ end
 
 # -----------------
 
+(f::SplineTable)(x) = evaluate_simple(x, f)
+
 function Base.show( io::IO, spt::SplineTable )
 
     print(io, spt.ndim, "-dimensional SplineTable of b-spline orders ", spt.orders, ",\n")
