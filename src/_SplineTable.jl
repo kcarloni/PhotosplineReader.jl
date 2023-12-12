@@ -57,6 +57,7 @@ end
 # -----------------
 
 (f::SplineTable)(x) = evaluate_simple(x, f)
+(f::SplineTable{N})(x...) where N = evaluate_simple( SVector{N, Float64}(x), f )
 
 function Base.show( io::IO, spt::SplineTable )
 
