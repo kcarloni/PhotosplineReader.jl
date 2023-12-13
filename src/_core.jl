@@ -51,7 +51,8 @@ function search_centers( x, nd, knots, orders, naxes, nknots )
     if search_success
         return centers
     else
-        throw( DomainError(x, "is outside of $(extrema.(knots))") )
+        return false
+        # throw( DomainError(x, "is outside of $(extrema.(knots))") )
     end
 end
 
