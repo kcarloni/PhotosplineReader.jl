@@ -6,6 +6,7 @@ version = "0.1.0"
 [deps]
 BasicBSpline = "4c5d9882-2acf-4ea4-9e48-968fd4518195"
 FITSIO = "525bcba6-941b-5504-bd06-fd0dc1a4d2eb"
+Interpolations = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 

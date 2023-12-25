@@ -36,7 +36,7 @@ end
 """
     SplineTable( f::FITS )
 
-read `FITS` file `f` into a `SplineTable` struct.
+read a `FITS` file into a `SplineTable` struct.
 """
 function SplineTable( f::FITS )
 
@@ -68,3 +68,41 @@ function Base.show( io::IO, spt::SplineTable )
     end
     
 end
+
+
+# -----------------
+
+"""
+    spline_interpolation( spt::SplineTable )
+    spline_interpolation( f::FITS )
+
+make an Interpolation object from a given SplineTable.
+note that this method assumes that spline padding knots are symmetric on both sides,
+and that it Interpolations supports only up to cubic-order B-splines.
+"""
+function spline_interpolation( spt::SplineTable )
+
+    buffers = ( spt.nknots .- size(spt.coeffs) ) .÷ 2
+    knots = Tuple(
+        spt.knots[d][( 1+buffers[d] ):( end-buffers[d]) ]
+        for d in 1:spt.ndim
+    )
+    nknots = length.( knots )
+
+    orders = ( 
+        Constant(), Linear(), Quadratic(), Cubic() ) 
+    
+    bsp = Tuple( BSpline(orders[o+1]) for o in spt.orders )
+
+    itp = Interpolations.BSplineInterpolation(
+        eltype(spt.coeffs),
+        spt.coeffs, 
+        bsp, 
+        range.(1, nknots)
+    )
+    sitp = scale(itp, knots... );
+    esitp = extrapolate(sitp, 0.)
+end
+
+spline_interpolation( f::FITS ) = 
+    spline_interpolation( SplineTable(f) )
