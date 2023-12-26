@@ -9,8 +9,6 @@ source code adapted to julia from https://github.com/icecube/photospline, with h
 ```julia
 julia> using PhotosplineReader
 
-julia> using PhotosplineReader.FITSIO
-
 julia> fpath = "PhotosplineReader.jl/test/examples/IceCube_data_release_202209013_kdes/E_dec_photospline_v006_3D.fits";
 
 julia> spt = SplineTable( fpath )
