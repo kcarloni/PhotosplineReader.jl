@@ -54,6 +54,8 @@ function SplineTable( f::FITS )
     return SplineTable( ndim, orders, extents, knots, coeffs)
 end
 
+SplineTable( fpath ) = FITS( fpath ) do f; SplineTable(f); end
+
 # -----------------
 
 (f::SplineTable)(x) = evaluate_simple(x, f)
